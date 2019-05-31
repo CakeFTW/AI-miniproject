@@ -24,29 +24,33 @@ for path in dirs:
     print("processing:", path)
     PeopleCounter = 0
     NoPeopleCounter = 0
+    NotFullBodyCounter = 0
     for x in range(len(files)-11):
         tmp_arr = []
         people = True
         for z in range(5):
             f = open(os.getcwd() + "/" + str(files[x+z]), "r")
             tmp_store = json.load(f)["people"]
+            
             if len(tmp_store) < 1:
                 people = False
                 continue
             tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
-
         f = open(os.getcwd() + "/" + str(files[x + 10]), "r")
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
             people = False
             continue
-        if(people):
-            labels.append(tmp_store[0]["pose_keypoints_2d"])
-            data.append(tmp_arr)
-            PeopleCounter += 1
+        if people:
+            if 0 in tmp_arr:
+                NotFullBodyCounter += 1
+            else:
+                labels.append(tmp_store[0]["pose_keypoints_2d"])
+                data.append(tmp_arr)
+                PeopleCounter += 1
         else:
             NoPeopleCounter += 1
-    print("done found ", PeopleCounter, "people and ", NoPeopleCounter, "frames missing people")   
+    print("done found ", PeopleCounter, "people and ",NotFullBodyCounter, " frames lacked features and ," , NoPeopleCounter, "frames missing people")   
 
 
 out_data = pandas.DataFrame(data)

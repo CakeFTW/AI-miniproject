@@ -9,22 +9,22 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 from math import floor
+import dataprocess as dp
+import pandas as pd
 
-try:
-    open("keypoints.data")
-except FileNotFoundError:
-    print("keypoints.data not found")
 
-output_file = open("keypoints.data",'r')
+data_set = pd.read_csv("dataframe_data.csv")
 
-dataJson = json.load(output_file)
-print(dataJson[6])
-#uncomment this
-Data = dataJson[:floor(0.8*len(dataJson))]
-target= dataJson[len(dataJson) - floor(0.8*len(dataJson)):]
-data=np.array(Data, dtype=float)
-target=np.array(target, dtype=float)
-x_train,x_test,y_train,y_test = train_test_split(data,target,test_size=0.2,random_state=4)
+data_set_np = data_set.values
+data_set_np = dp.circle_scale(data_set_np)
+
+data_labels = pd.read_csv("dataframe_labels.csv")
+data_labels['labels'] = data_labels['0'].astype(str)
+print(len(data_set_np))
+print(len(data_set_np[0]))
+data = data_set_np.reshape(1, 40345, 250)
+
+x_train,x_test,y_train,y_test = train_test_split(data,data_labels,test_size=0.2,random_state=4)
 model=Sequential()
 model.add(LSTM((1),batch_input_shape=(None,5,1),return_sequences=True))
 model.add(LSTM((1),return_sequences=False))

@@ -21,26 +21,35 @@ for path in dirs:
     os.chdir(origin + "/" + argv[1] + "/" + path)
     files = os.listdir()
     files.sort(key=os.path.getmtime)
-    for x in range(len(files)):
+    print("processing:", path)
+    PeopleCounter = 0
+    NoPeopleCounter = 0
+    for x in range(len(files)-11):
         tmp_arr = []
-        try:
-            print(files[x+10])
-        except:
-            print("breaking")
-            break
+        people = True
         for z in range(5):
             f = open(os.getcwd() + "/" + str(files[x+z]), "r")
             tmp_store = json.load(f)["people"]
             if len(tmp_store) < 1:
+                people = False
                 continue
             tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
-        data.append(tmp_arr)
+
         f = open(os.getcwd() + "/" + str(files[x + 10]), "r")
 
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
+            people = False
             continue
-        labels.append(tmp_store[0]["pose_keypoints_2d"])
+        if(people):
+            labels.append(tmp_store[0]["pose_keypoints_2d"])
+            data.append(tmp_arr)
+            PeopleCounter += 1
+        else:
+            NoPeopleCounter += 1
+    print("done found ", PeopleCounter, "people and ", NoPeopleCounter, "frames missing people")   
+
+
 out_data = pandas.DataFrame(data)
 out_labels = pandas.DataFrame(labels)
 os.chdir(origin)

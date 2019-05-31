@@ -13,7 +13,7 @@ def call_openpose_on_folder(path):
     except:
         print("no folder path provided")
 
-    videos_to_process = [x for x in items_in_folder if ".mp4" in x]
+    videos_to_process = ["\""+x+"\"" for x in items_in_folder if ".mp4" in x]
 
     try:
         mkdir(argv[1] + "_poses")

@@ -36,7 +36,6 @@ for path in dirs:
             tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
 
         f = open(os.getcwd() + "/" + str(files[x + 10]), "r")
-
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
             people = False

@@ -42,7 +42,7 @@ for path in dirs:
             people = False
             continue
         if people:
-            if 0 in tmp_arr:
+            if 0 in tmp_arr or 0 in tmp_store:
                 NotFullBodyCounter += 1
             else:
                 labels.append(tmp_store[0]["pose_keypoints_2d"])

@@ -6,9 +6,9 @@ import pandas as pd
 
 def remove_confidence_intervals(data:np.ndarray):
     """Sets all key points relative to the center but scale 0-1 using screen dimensions"""
-    if data.shape[1] != 375:
-        print("wrong dimensions, DUDE! should be 375 MAAAAN")
-        exit()
+    # if data.shape[1] != 375:
+    #     print("wrong dimensions, DUDE! should be 375 MAAAAN")
+    #     exit()
 
     data = np.nan_to_num(data)
 
@@ -99,17 +99,16 @@ def calcAngleJoint(data,target1, target2, joint):
 
 
 
-data_set = pd.read_csv("dataframe_data.csv")
-data_set_np = data_set.values
-data_set_np = remove_confidence_intervals(data_set_np)
+# data_set = pd.read_csv("dataframe_data.csv")
+# data_set_np = data_set.values
+# data_set_np = remove_confidence_intervals(data_set_np)
 
-dots = calcAnglesBody(data_set_np)
+# dots = calcAnglesBody(data_set_np)
 
-print(dots.shape)
+# print(dots.shape)
 
 
 # data_set_np = angleRelToLastJoint(data_set_np)
 
 # print(data_set_np)
 # print(data_set_np.shape)
-

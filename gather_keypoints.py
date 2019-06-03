@@ -16,6 +16,7 @@ paths_to_folders = []
 
 data = []
 labels = []
+class HipJumpError(Exception): pass
 
 for path in dirs:
     os.chdir(origin + "/" + argv[1] + "/" + path)
@@ -25,17 +26,32 @@ for path in dirs:
     PeopleCounter = 0
     NoPeopleCounter = 0
     NotFullBodyCounter = 0
+    HipJumpCounter=0
     for x in range(5,len(files)-5):
         tmp_arr = []
         people = True
-        for z in range(5):
-            f = open(os.getcwd() + "/" + str(files[x-z]), "r")
-            tmp_store = json.load(f)["people"]
-            
-            if len(tmp_store) < 1:
-                people = False
-                continue
-            tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
+        try:
+            for z in range(5):
+                f = open(os.getcwd() + "/" + str(files[x-z]), "r")
+                tmp_store = json.load(f)["people"]
+                
+                if len(tmp_store) < 1:
+                    people = False
+                    continue
+                if(z==0):
+                    old_hipx=tmp_store[0]["pose_keypoints_2d"][24]
+                    old_hipy=tmp_store[0]["pose_keypoints_2d"][25]
+                else:
+                    curr_hipx=tmp_store[0]["pose_keypoints_2d"][24]
+                    curr_hipy=tmp_store[0]["pose_keypoints_2d"][25]
+                    if(curr_hipx-old_hipx>0.1 or curr_hipx-old_hipx<(-0.1) or curr_hipy-old_hipy>0.1 or curr_hipy-old_hipy<(-0.1)):
+                        raise HipJumpError()
+                    old_hipx = curr_hipx
+                    old_hipy= curr_hipy
+                tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
+        except HipJumpError:
+            HipJumpCounter+=1
+            continue
         f = open(os.getcwd() + "/" + str(files[x + 5]), "r")
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
@@ -50,7 +66,8 @@ for path in dirs:
                 PeopleCounter += 1
         else:
             NoPeopleCounter += 1
-    print("done found ", PeopleCounter, "people and ",NotFullBodyCounter, " frames lacked features and ," , NoPeopleCounter, "frames missing people")   
+
+    print("done found ", PeopleCounter, "people and ",NotFullBodyCounter, " frames lacked features and ," , NoPeopleCounter, "frames missing people "," skipped hips:",HipJumpCounter)   
 
 
 out_data = pandas.DataFrame(data)

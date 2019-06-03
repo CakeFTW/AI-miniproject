@@ -25,18 +25,18 @@ for path in dirs:
     PeopleCounter = 0
     NoPeopleCounter = 0
     NotFullBodyCounter = 0
-    for x in range(len(files)-11):
+    for x in range(5,len(files)-5):
         tmp_arr = []
         people = True
         for z in range(5):
-            f = open(os.getcwd() + "/" + str(files[x+z]), "r")
+            f = open(os.getcwd() + "/" + str(files[x-z]), "r")
             tmp_store = json.load(f)["people"]
             
             if len(tmp_store) < 1:
                 people = False
                 continue
             tmp_arr.extend(tmp_store[0]["pose_keypoints_2d"])
-        f = open(os.getcwd() + "/" + str(files[x + 10]), "r")
+        f = open(os.getcwd() + "/" + str(files[x + 5]), "r")
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
             people = False

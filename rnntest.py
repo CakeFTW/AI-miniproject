@@ -22,7 +22,7 @@ data_labels = pd.read_csv("dataframe_labels.csv")
 data_labels['labels'] = data_labels['0'].astype(str)
 print(len(data_set_np))
 print(len(data_set_np[0]))
-data = data_set_np.reshape(1, 40345, 250)
+data = data_set_np.reshape(1, data_set_np.shape[0], data_set_np.shape[1])
 
 x_train,x_test,y_train,y_test = train_test_split(data,data_labels,test_size=0.2,random_state=4)
 model=Sequential()

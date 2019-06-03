@@ -9,21 +9,23 @@ from sklearn.model_selection import train_test_split
 
 #variables for the LSTM
 input_step = 5
-input_features = 50
+input_features = 26
 #prepare data
 data_pandas = pd.read_csv('dataframe_data.csv') 
 data = data_pandas.values
 data = dp.remove_confidence_intervals(data)
-#data = dp.relativeToFirstIndex(data)
+# data = dp.calcAnglesBody(data)
+data = dp.relativeToFirstIndex(data, nrOfFeatures=50)
 #get labels
 labels = pd.read_csv('dataframe_labels.csv').values
 labels = dp.remove_confidence_intervals(labels)
+# labels = dp.calcAnglesBody(labels, number_of_frames=1 )
 
 
 
 #create train and test set
 
-x_train,x_test,y_train,y_test = train_test_split(data,labels, test_size=0.2,random_state=4)
+x_train,x_test,y_train,y_test = train_test_split(data,labels, test_size=0.5,random_state=4)
 
 #now stack the data sets
 
@@ -38,22 +40,24 @@ for i in range(x_test.shape[0]):
         traindata[i,j] = x_test[i, input_features*j : input_features*j + input_features]
 
 
-print(traindata.shape)
-
 
 #create the model
 model = Sequential()
-model.add(LSTM(125, activation = 'elu',  return_sequences=True, input_shape = (input_step, input_features)))
-model.add(LSTM(125,activation = 'elu'))
-model.add(Dense(input_features))
-model.compile(optimizer="adam", loss= 'mse')
+# model.add(Dense(100, input_shape = (input_step, input_features)))
+# model.add(Dense(100))
+model.add(LSTM(100, return_sequences=True, input_shape = (input_step, input_features)))
+model.add(LSTM(50))
+model.add(Dense(labels.shape[1]))
+model.compile(optimizer="sgd", loss= 'mse')
+model.summary()
 
 #fit the model 
 model.fit(traindata,y_train, epochs= 5)
 
 scores = model.evaluate(testdata, y_test)
+
 print(scores)
-pass
+# pass
 
 model.save('lstm_simple.h5')
 

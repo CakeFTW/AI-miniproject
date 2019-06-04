@@ -108,7 +108,7 @@ def calcAngleJoint(data,target1, target2, joint):
     vector1 = np.nan_to_num(vector1)
     vector2 = np.nan_to_num(vector2)
     angleCosAndSin =  dotsProducs(vector1[:,0],vector1[:,1], vector2[:,0], vector2[:,1])
-    angle = 0.5 + angleCosAndSin[:,0] * np.sign(angleCosAndSin[:,1])
+    angle = 0.5 + 0.5 * angleCosAndSin[:,0] * np.sign(angleCosAndSin[:,1])
     print(angle)
     return angle
 

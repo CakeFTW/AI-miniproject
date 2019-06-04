@@ -5,8 +5,11 @@ import json
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
+from keras.layers import CuDNNLSTM
 from sklearn.model_selection import train_test_split
+import tensorflow as tf
 
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 #variables for the LSTM
 input_step = 5
 input_features = 50
@@ -45,8 +48,8 @@ for i in range(x_test.shape[0]):
 model = Sequential()
 # model.add(Dense(100, ))
 # model.add(Dense(100))
-model.add(LSTM(100, return_sequences=True,input_shape = (input_step, input_features)))
-model.add(LSTM(50))
+model.add(CuDNNLSTM(100, return_sequences=True,input_shape = (input_step, input_features)))
+model.add(CuDNNLSTM(50))
 model.add(Dense(labels.shape[1]))
 model.compile(optimizer="adam", loss= 'mse')
 model.summary()

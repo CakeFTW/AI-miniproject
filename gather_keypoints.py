@@ -73,8 +73,8 @@ for path in dirs:
 out_data = pandas.DataFrame(data)
 out_labels = pandas.DataFrame(labels)
 os.chdir(origin)
-out_data.to_csv("dataframe_data.csv",index=False)
-out_labels.to_csv("dataframe_labels.csv", index=False)
+out_data.to_csv("split_test_data.csv",index=False)
+out_labels.to_csv("split_test_labels.csv", index=False)
 
 
 print("done in", (time() - start_time), " seconds")

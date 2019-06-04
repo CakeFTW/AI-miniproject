@@ -12,7 +12,7 @@ from sklearn.model_selection import StratifiedKFold
 from sys import argv
 
 input_step = 5
-input_features = 63
+input_features = 50
 out_shape = 50
 
 
@@ -50,41 +50,23 @@ def test(k_fold = False):
         x_train = dp.remove_confidence_intervals(pd.read_csv('split_train_data.csv').values)
         x_test = dp.remove_confidence_intervals(pd.read_csv('split_test_data.csv').values)
         # data = dp.calcAnglesBody(data)
-        x_test = dp.relativeToFirstIndex(x_test, nrOfFeatures=50)
-        x_train = dp.relativeToFirstIndex(x_train,nrOfFeatures= 50)
-        x_test_angle = dp.calcAnglesBody(x_test)
-        x_train_angle = dp.calcAnglesBody(x_train)
+        # x_test = dp.relativeToFirstIndex(x_test, nrOfFeatures=input_features)
+        # x_train = dp.relativeToFirstIndex(x_train, nrOfFeatures=input_features)
 
         #get labels
         y_train = dp.remove_confidence_intervals(pd.read_csv('split_train_labels.csv').values)
         y_test = dp.remove_confidence_intervals(pd.read_csv('split_test_labels.csv').values)
         # labels = dp.calcAnglesBody(labels, number_of_frames=1 )
 
-        traindata = np.zeros((x_train.shape[0], input_step, 50))
+        traindata = np.zeros((x_train.shape[0], input_step, input_features))
         for i in range(x_train.shape[0]):
             for j in range(input_step-1,-1,-1):
-                traindata[i,j] = x_train[i, 50*j : 50*j + 50]
-        traindata_angles = np.zeros((x_train.shape[0], input_step, 13))
-        for i in range(x_train.shape[0]):
-            for j in range(input_step-1,-1,-1):
-                traindata_angles[i,j] = x_train[i, 13*j : 13*j + 13]
+                traindata[i,j] = x_train[i, input_features*j : input_features*j + input_features]
 
-        testdata = np.zeros((x_test.shape[0], input_step, 50))
+        testdata = np.zeros((x_test.shape[0], input_step, input_features))
         for i in range(x_test.shape[0]):
             for j in range(input_step-1,-1,-1):
-                testdata[i,j] = x_test[i, 50*j : 50*j + 50]
-
-        testdata_angles = np.zeros((x_test.shape[0], input_step, 13))
-        for i in range(x_test.shape[0]):
-            for j in range(input_step-1,-1,-1):
-                testdata_angles[i,j] = x_test[i,13*j : 13*j + 13]
-
-        traindata =np.nan_to_num( np.append(traindata,traindata_angles,2))
-        testdata = np.nan_to_num(np.append(testdata, testdata_angles,2))
-
-        print(testdata.shape)
-        print(testdata_angles.shape)
-        
+                testdata[i,j] = x_test[i, input_features*j : input_features*j + input_features]
 
 
 
@@ -123,20 +105,17 @@ def createModel():
         #create the model
     model = Sequential()
     # model.add(Dense(25,input_shape = (input_step, input_features)))
+    # model.add(Dropout(0.5, noise_shape=None, seed=None))
     # model.add(Dense(25))
-    model.add(Dense(25,input_shape = (input_step, input_features)))
-    model.add(Dropout(0.5, noise_shape=None, seed=None))
-    model.add(Dense(25))
+    # model.add(Dropout(0.5, noise_shape=None, seed=None))
+    model.add(LSTM(50, return_sequences=True))
     model.add(Dropout(0.5, noise_shape=None, seed=None))
     model.add(LSTM(25, return_sequences=True))
     model.add(Dropout(0.5, noise_shape=None, seed=None))
-    model.add(LSTM(25,return_sequences=True))
-    model.add(Dropout(0.5, noise_shape=None, seed=None))
-    model.add(LSTM(25,))
-    model.add(Dense(out_shape,))
-    optimizer = keras.optimizers.adam(0.0005)
+    model.add(LSTM(50))
+    model.add(Dense(out_shape))
+    optimizer = keras.optimizers.adam()
     model.compile(optimizer=optimizer, loss= 'mse')
     # model.summary()
     return model
 
-test(False)

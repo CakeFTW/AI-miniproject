@@ -1,0 +1,265 @@
+Description,"Comment: First model
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","Comment: Changed to velocity space
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Velocity space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Changed transformation to angle space
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Angle space  13 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 1 with the gradient descent optimizer
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Gradient descent
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 1 with the adamax optimizer
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adamax
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 1 with half the default learning rate
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half of the default
+","
+Comment: Using model 1 with twice default learning rate
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Twice the default
+","
+Comment: Using model 1 with elu activation
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 1 with relu activation
+Layers:
+(LSTM'25)
+(LSTM'25)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 9 with dropout layers
+Layers:
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 10 with changed data layout to velocity space
+Layers:
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Velocity space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 10 with changing from relu activation to elu
+Layers:
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 12 with removed activation  added recurrent_activation 10h
+Layers:
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 13 with removed recurrent_activation  added dense layers infront and dropout layers in between
+Layers:
+(Dense'25)
+(Dropout'rate=0.5)
+(Dense'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Half the default
+","
+Comment: Using model 14 with increased learning rate
+Layers:
+(Dense'25)
+(Dropout'rate=0.5)
+(Dense'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 15 but changed input data to Angle+Velocity space
+Layers:
+(Dense'25)
+(Dropout'rate=0.5)
+(Dense'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Angle+Velocity space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 15 removed dense layers and added 6 lstm layers
+Layers:
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'25)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 17 removed 7 lstm layers changed size of the remaining ones to 50
+Layers:
+(LSTM'50)
+(Dropout'rate=0.5)
+(LSTM'50)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 18 with a LSTM(25) layer in between the other LSTM layers
+Layers:
+(LSTM'50)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'50)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 19 with another LSTM(50) and LSTM(25) layer
+Layers:
+(LSTM'50)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'50)
+(Dropout'rate=0.5)
+(LSTM'25)
+(Dropout'rate=0.5)
+(LSTM'50)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+","
+Comment: Using model 19 with only 1 LSTM(50) layer
+Layers:
+(LSTM'50)
+OUT-(Dense'50)
+Optimizer: Adam
+Data Layout: Screen space  50 values in  50 values out
+Learning Rate: Default
+"
+1,0.0077472643293299065,0.007755850802807783,0.011487268925672806,0.014455470701156641,0.007848875418879244,0.008130404691182083,0.00781639578273924,0.007751901909231858,0.05670394942665812,0.024519844096960758,0.04962456025901233,0.008125212166652549,0.00811004732166409,0.008361801414383802,0.008119368377430299,0.010294730277788348,0.008954131327521302,0.007825866843706251,0.007948637849873262,0.008446699245500925,0.007877690229817774
+2,0.008017194741195879,0.008168563019896552,0.013919416099727343,0.014494600984302582,0.007708520314282237,0.0077090027595728096,0.007858883322780001,0.007944980335730609,0.06824063726018041,0.05512348165387637,0.032451959744387075,0.008074289603637218,0.008032224835590837,0.008289464051288836,0.008326816955204722,0.010782507374747927,0.009710812118101141,0.00780810847152816,0.007981381356833172,0.00813392651955947,0.007890563659720629
+3,0.008130090085652441,0.007952317240767795,0.011837335014555484,0.01461640461621063,0.007767773143192502,0.007899793944593551,0.0077374205274465205,0.00777718354402186,0.06714084978737707,0.02111034258284623,0.03001829066167896,0.008078111887835296,0.008298537197689375,0.008149981626420763,0.008165639899522544,0.00918864825368942,0.00906782971797771,0.008063043553967598,0.007916047686719467,0.008328626994078004,0.00801313461475549
+4,0.008070428628207477,0.007663991438422535,0.011750214260050141,0.014697234607610948,0.007932900148894459,0.008029410664199026,0.00847371511110971,0.007999854692980049,0.033042055103744174,0.03365427948303356,0.030436203835421036,0.008017619552807529,0.008392407006975277,0.00805559753696903,0.00827466510788735,0.009339504101555741,0.009542069481824329,0.007971253638640938,0.008450471368020282,0.008142426875722869,0.007862682354480802
+5,0.008064712861513527,0.007613407812112704,0.011464689274811302,0.014499353601697872,0.00782627214214914,0.007876881004601781,0.00790511073371091,0.007907902945027221,0.030870755319268483,0.01585945985841053,0.04399196710138658,0.00788367987581146,0.00815154694695126,0.008885558817548682,0.00845798416704238,0.010633544188458698,0.008782809003745607,0.008146012927228292,0.007948656827008505,0.008202430037485435,0.007831282011978382
+6,0.007737425465548313,0.007716460297963581,0.01202722896179571,0.014774370102993806,0.007884705615683928,0.0077165507342038565,0.007976100636200733,0.007892760737526223,0.06908175461541281,0.024235349787658383,0.02873337233797198,0.00814464773911576,0.008152477913407976,0.00819667515999823,0.00853503951936892,0.010634288765460348,0.011001935714790035,0.00805156074788921,0.008273349129571771,0.008092715282387669,0.00779488541345801
+7,0.007798069251668088,0.007715486151803958,0.01150124636951946,0.014593813618483678,0.00792525299320938,0.007696376586213184,0.008490181518340927,0.007957201844314405,0.07987228281115623,0.04429123753202306,0.035062093841083886,0.00807448233134786,0.008149738216168217,0.008360109754371528,0.008961538465493073,0.010445085291520773,0.010570717606337387,0.0078044195433398045,0.008315766338908544,0.008171460273404185,0.007711617800603737
+8,0.007810245308576552,0.007732741517230085,0.01134319736145065,0.01459827109796181,0.0077260794856819325,0.0085574246521941,0.007980452006039529,0.007912683742832554,0.02807570181821068,0.0324395407312945,0.03146423705880059,0.008102616703866477,0.008010507906742447,0.00805482956074808,0.008136787934039127,0.010730256235202898,0.009984579446381292,0.00813810392068707,0.008242005694338398,0.008148622532570515,0.007886980474819389
+9,0.007794125878508309,0.007832123613446736,0.012426974019194192,0.014540315651301584,0.007854722092661009,0.007852933880341655,0.007761362748156982,0.007889800867406146,0.05580636103158677,0.025313554688140446,0.015132348211381638,0.008164648915561581,0.008188423541953514,0.008265069162794242,0.008311908571573967,0.010552295948902505,0.01042223687625231,0.007993289419444159,0.008048949204865295,0.008148279807583871,0.007847847971823571
+10,0.007679100498022008,0.007965131071550592,0.011259821227055286,0.014440979770937471,0.00781423798884983,0.007812772808953516,0.008633480398648256,0.007886099976029268,0.08153721019459016,0.0216852095027726,0.03700301999072789,0.008239634555441074,0.008069520516106052,0.008112144571389642,0.008208225068760228,0.010546850935785768,0.009123069901868149,0.007820063636980666,0.008175009634531617,0.008344485453441108,0.007877432873319871

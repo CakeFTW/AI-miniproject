@@ -110,5 +110,3 @@ def createModel():
     model.compile(optimizer="adam", loss= 'mse')
     # model.summary()
     return model
-
-test(False)

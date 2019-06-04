@@ -1,5 +1,5 @@
 # import lstm_simple
-import test_lib0 as model
+import model21 as model
 from subprocess import call
 from sys import argv
 import csv
@@ -9,15 +9,13 @@ file_name="models_analytics.csv"
 csv_input = pd.read_csv(file_name)
 
 description = """
+Comment: Using model 19 with only 1 LSTM(50) layer
 Layers:
-(LSTM'25)
-(LSTM'25)
-(LSTM'25)
+(LSTM'50)
 OUT-(Dense'50)
 Optimizer: Adam
 Data Layout: Screen space, 50 values in, 50 values out
 Learning Rate: Default
-Comment: First model
 """
 # with open(file_name, 'rt') as csvfile:
 #     reader=csv.reader(csvfile)
@@ -37,8 +35,8 @@ for test_type in range(1):
         kfold=True
     else:
         kfold=False
-    for x in range(20):
-        print("///////////////ITERATION NUMBER: ",str(x+1)," OUT OF 20///////////////")
+    for x in range(10):
+        print("///////////////ITERATION NUMBER: ",str(x+1)," OUT OF 10///////////////")
         tmp_str=model.test(kfold)
         tmp_arr.append(tmp_str)
 print(tmp_arr)

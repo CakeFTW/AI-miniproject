@@ -57,26 +57,27 @@ def remove_confidence_intervals(data:np.ndarray):
 #     return data
 
 
-def relativeToFirstIndex(data : np.ndarray, number_of_frames = 5, nrOfFeatures = 25):
+def relativeToFirstIndex(data : np.ndarray, number_of_frames = 5, nrOfFeatures = 50):
     "Makes each coordinate relative to the first index in an array of length number of frames x 25"
 
     for x in range(number_of_frames - 1):
         index = x+1
+        newdata = data
         for y in range(nrOfFeatures):
-            data[:,y + nrOfFeatures*index] -= data[:,y]
+            newdata[:,y + nrOfFeatures*index] = data[:, y + nrOfFeatures*index] - data[:,y + nrOfFeatures * x]
 
     return data
 
 
 def calcAnglesBody(data : np.ndarray, number_of_frames = 5):
-    new_data = np.empty((data.shape[0],26*number_of_frames))
-    targets = [[4,2,3],[3,1,2],[7,5,6],[6,1,5],[9,1,8],[10,8,9],[11,9,10],[22,10,11],[12,1,8],[13,8,12],[14,12,13],[19,13,14],[8,0,1]]
+    new_data = np.empty((data.shape[0],15*number_of_frames))
+    targets = [[4,2,3],[3,1,2],[7,5,6],[6,1,5],[9,1,8],[10,8,9],[11,9,10],[22,10,11],[12,1,8],[13,8,12],[14,12,13],[19,13,14],[8,0,1],[1,16,0],[1,15,0]]
     counter = 0
     for frame in range(number_of_frames):
         startIndex = frame * 25
         for target in targets:
-            new_data[:,counter : counter + 2] = calcAngleJoint(data, target[0]+startIndex, target[1]+startIndex, target[2]+startIndex)
-            counter += 2
+            new_data[:,counter] = calcAngleJoint(data, target[0]+startIndex, target[1]+startIndex, target[2]+startIndex)
+            counter += 1
     return new_data
 
 
@@ -106,7 +107,10 @@ def calcAngleJoint(data,target1, target2, joint):
     vector2[:,1] = np.divide(vector2[:,1],norm2)
     vector1 = np.nan_to_num(vector1)
     vector2 = np.nan_to_num(vector2)
-    return dotsProducs(vector1[:,0],vector1[:,1], vector2[:,0], vector2[:,1])
+    angleCosAndSin =  dotsProducs(vector1[:,0],vector1[:,1], vector2[:,0], vector2[:,1])
+    angle = 0.5 + angleCosAndSin[:,0] * np.sign(angleCosAndSin[:,1])
+    print(angle)
+    return angle
 
 
 

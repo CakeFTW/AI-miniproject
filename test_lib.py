@@ -102,13 +102,12 @@ def test(k_fold = False):
 def createModel():
         #create the model
     model = Sequential()
-    model.add(Dense(25,input_shape = (input_step, input_features)))
-    model.add(Dense(25))
-    model.add(LSTM(25, return_sequences=True))
+    # model.add(Dense(25,input_shape = (input_step, input_features)))
+    # model.add(Dense(25))
+    model.add(LSTM(25, return_sequences=True, input_shape = (input_step, input_features)))
+    model.add(LSTM(25,return_sequences=True))
     model.add(LSTM(25))
     model.add(Dense(out_shape))
     model.compile(optimizer="adam", loss= 'mse')
     # model.summary()
     return model
-
-test(False)

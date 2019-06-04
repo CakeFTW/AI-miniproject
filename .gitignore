@@ -1,2 +1,4 @@
 *.json
-*.csv
+raw_videos
+split1
+split2

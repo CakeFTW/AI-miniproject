@@ -45,10 +45,11 @@ def test(k_fold = False):
 
     else:
         #prepare data
-        x_train = dp.remove_confidence_intervals(pd.read_csv('split_train.csv').values)
-        x_test = dp.remove_confidence_intervals(pd.read_csv('split_test.csv').values)
+        x_train = dp.remove_confidence_intervals(pd.read_csv('split_train_data.csv').values)
+        x_test = dp.remove_confidence_intervals(pd.read_csv('split_test_data.csv').values)
         # data = dp.calcAnglesBody(data)
-        # data = dp.relativeToFirstIndex(data, nrOfFeatures=50)
+        x_test = dp.relativeToFirstIndex(x_test, nrOfFeatures=input_features)
+        x_train = dp.relativeToFirstIndex(x_train, nrOfFeatures=input_features)
 
         #get labels
         y_train = dp.remove_confidence_intervals(pd.read_csv('split_train_labels.csv').values)
@@ -101,11 +102,13 @@ def test(k_fold = False):
 def createModel():
         #create the model
     model = Sequential()
-    # model.add(Dense(100, ))
-    # model.add(Dense(100))
-    model.add(LSTM(100, return_sequences=True,input_shape = (input_step, input_features)))
-    model.add(LSTM(50))
+    model.add(Dense(25,input_shape = (input_step, input_features)))
+    model.add(Dense(25))
+    model.add(LSTM(25, return_sequences=True))
+    model.add(LSTM(25))
     model.add(Dense(out_shape))
     model.compile(optimizer="adam", loss= 'mse')
     # model.summary()
     return model
+
+test(False)

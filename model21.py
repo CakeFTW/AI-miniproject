@@ -73,7 +73,7 @@ def test(k_fold = False):
     #create the model
 
     if k_fold:
-        k_fold_scores = np.arange(10)
+        k_fold_scores = np.arange(10, dtype=np.float32)
         for fold in range(10):
 
             model = createModel()
@@ -84,11 +84,13 @@ def test(k_fold = False):
             testmask = np.zeros(data.shape[0], dtype= bool)
             testmask[fold_indicies[fold]] = True
 
-            model.fit(data[trainmask], labels[trainmask], validation_data=(data[testmask], labels[testmask]), epochs = 20)
+            model.fit(data[trainmask], labels[trainmask], validation_data=(data[testmask], labels[testmask]), epochs = 10)
             scores = model.evaluate(data[testmask], labels[testmask])
             k_fold_scores[fold] = scores
+            print(scores)
+            print(k_fold_scores)
         print(k_fold_scores)
-        return np.average(k_fold_scores)
+        return np.mean(k_fold_scores)
 
     else:
         model = createModel()

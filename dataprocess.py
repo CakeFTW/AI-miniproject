@@ -12,7 +12,8 @@ def remove_confidence_intervals(data:np.ndarray):
 
     data = np.nan_to_num(data)
 
-    data_nci = np.delete(data,[3*x+2 for x in range(375)], 1)
+    data_nci = np.delete(data,[3*x+2 for x in range(25*5)], 1)
+    print([3*x+2 for x in range(25*5)])
 
     # #remove unsued joints
     # unused_joints = [0,10,13,11,14,15,16,17,18,19,20,21,22,23,24]
@@ -78,7 +79,8 @@ def calcAnglesBody(data : np.ndarray, number_of_frames = 5):
         for target in targets:
             new_data[:,counter] = calcAngleJoint(data, target[0]+startIndex, target[1]+startIndex, target[2]+startIndex)
             counter += 1
-    return new_data
+    
+    return np.nan_to_num(new_data)
 
 
 

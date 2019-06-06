@@ -5,14 +5,20 @@ import json
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
-from keras.layers import CuDNNLSTM
 from sklearn.model_selection import train_test_split
-import tensorflow as tf
+from sys import argv
 
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+k_fold = False
+if argv[1] == '1':
+        print("performing kfold validation")
+        k_fold = True
+else:
+        print("test with split set")
+
 #variables for the LSTM
 input_step = 5
 input_features = 50
+
 #prepare data
 data_pandas = pd.read_csv('dataframe_data.csv') 
 data = data_pandas.values
@@ -48,19 +54,18 @@ for i in range(x_test.shape[0]):
 model = Sequential()
 # model.add(Dense(100, ))
 # model.add(Dense(100))
-model.add(CuDNNLSTM(100, return_sequences=True,input_shape = (input_step, input_features)))
-model.add(CuDNNLSTM(50))
+model.add(LSTM(100, return_sequences=True,input_shape = (input_step, input_features)))
+model.add(LSTM(50))
 model.add(Dense(labels.shape[1]))
 model.compile(optimizer="adam", loss= 'mse')
-model.summary()
+# model.summary()
 
 #fit the model 
-model.fit(traindata,y_train, epochs= 5)
+model.fit(traindata,y_train, validation_data=(testdata,y_test), epochs= 20)
 
 scores = model.evaluate(testdata, y_test)
 
 print(scores)
 # pass
 
-model.save('lstm_simple.h5')
-
+exit(scores)

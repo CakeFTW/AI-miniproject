@@ -52,7 +52,7 @@ for path in dirs:
         except HipJumpError:
             HipJumpCounter+=1
             continue
-        f = open(os.getcwd() + "/" + str(files[x + 5]), "r")
+        f = open(os.getcwd() + "/" + str(files[x +1]), "r")
         tmp_store = json.load(f)["people"]
         if len(tmp_store) < 1:
             people = False
@@ -73,8 +73,8 @@ for path in dirs:
 out_data = pandas.DataFrame(data)
 out_labels = pandas.DataFrame(labels)
 os.chdir(origin)
-out_data.to_csv("split_test_data.csv",index=False)
-out_labels.to_csv("split_test_labels.csv", index=False)
+out_data.to_csv("1frame_data.csv",index=False)
+out_labels.to_csv("1frame_labels", index=False)
 
 
 print("done in", (time() - start_time), " seconds")
